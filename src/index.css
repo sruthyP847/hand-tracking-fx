@@ -1,0 +1,117 @@
+/* Global styles. Kept deliberately small: a dark full-screen stage for the
+   camera, a tab bar on top, and a couple of overlay badges. */
+
+:root {
+  color-scheme: dark;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  background: #0e0e11;
+  color: #e6e6ea;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+}
+
+/* ---- Tab bar ---------------------------------------------------------- */
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tab {
+  padding: 6px 14px;
+  border: 1px solid #33343d;
+  border-radius: 999px;
+  background: #1a1b21;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.tab:hover {
+  border-color: #5a5b66;
+}
+
+.tab.active {
+  background: #c084fc;
+  border-color: #c084fc;
+  color: #0e0e11;
+}
+
+/* ---- Camera stage ----------------------------------------------------- */
+
+/* The stage is position: relative so the canvas can sit exactly on top of
+   the video. Its width follows the viewport; height comes from the video's
+   own aspect ratio once it starts playing. */
+.stage {
+  position: relative;
+  width: min(100%, 960px);
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.stage video {
+  display: block; /* removes the inline-element gap below the video */
+  width: 100%;
+  height: auto;
+  /* Mirror horizontally so it feels like a selfie / mirror. */
+  transform: scaleX(-1);
+}
+
+.stage canvas {
+  position: absolute;
+  inset: 0; /* top/right/bottom/left: 0 -> same box as the video */
+  width: 100%;
+  height: 100%;
+  /* Mirror the canvas the same way. Landmarks come back in the *unmirrored*
+     video's coordinate space, so drawing them on an equally mirrored canvas
+     lines them up with what you see. */
+  transform: scaleX(-1);
+  pointer-events: none;
+}
+
+/* Overlay messages (loading, errors) centred on the stage. */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.overlay.error {
+  color: #ff9a9a;
+}
+
+/* Small FPS badge in the corner. Lives in the DOM (not the canvas) because
+   the canvas is mirrored and text drawn on it would appear backwards. */
+.fps {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+}
