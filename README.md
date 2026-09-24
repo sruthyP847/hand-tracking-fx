@@ -1,10 +1,10 @@
-# hand-art
+# hand-tracking-fx
 
 Webcam + MediaPipe hand tracking with swappable visual effects.
 
 ```sh
 npm install
-npm run dev      # http://localhost:5173/hand-art/
+npm run dev      # http://localhost:5173/hand-tracking-fx/
 npm run build    # output in dist/, ready for GitHub Pages
 ```
 

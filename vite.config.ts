@@ -5,7 +5,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react()],
   // GitHub Pages serves project sites from https://<user>.github.io/<repo>/,
-  // so every asset URL needs the "/hand-art/" prefix. This also applies in
-  // dev: the app runs at http://localhost:5173/hand-art/
-  base: '/hand-art/',
+  // so every asset URL needs the "/hand-tracking-fx/" prefix. This also applies in
+  // dev: the app runs at http://localhost:5173/hand-tracking-fx/
+  base: '/hand-tracking-fx/',
 })
